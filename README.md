@@ -1,3 +1,6 @@
+Tento module je momentálně ve vývoji
+================
+
 PrestashopModule
 ================
 
