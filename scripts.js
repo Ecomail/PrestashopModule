@@ -1,29 +1,49 @@
 $(function() {
 
+    var ecApiKey = $('#ecomail_api_key');
     var ecSubmitButton = $('.panel-footer button[type="submit"]');
-    var ecSelectList = $('#ecomail_list_id').parents('.form-group');
+    var ecSelectList = $('#ecomail_list_id');
+    var ecSelectListGroup = $('#ecomail_list_id').parents('.form-group');
     
-    ecSubmitButton.hide();
-    ecSelectList.hide();
+    var remoteFormShown = false;
     
-    $('<div class="form-group"><label class="control-label col-lg-3"></label><div class="col-lg-9 "><input type="submit" value="Připojit" id="ecConnect" class=""></div></div>').insertAfter("#configuration_form .form-wrapper .form-group:first-child");
+    if(ecApiKey.val()==''){    
+        ecInitRemoteForm();
+    }
     
-    $('#ecConnect').click(function(e){
-        e.preventDefault();
-        /*
-        $.get("http://api.ecomailapp.cz/lists?key=asdf", function( data ) {
-            alert(data);
-        });*/
-         $.ajax({
-                                        url: '/prestashop/modules/ecomail/ajax-call.php',
-                                        type: 'get',
-                                        data: 'ajax=true',
-                                        success: function(data) {
-                                                console.log('success');
-                                                // OTHER SUCCESS COMMAND - CHECK THE RETURN VALUE
-                                        }
-                                });
-        return false;
+    ecApiKey.keyup(function(){
+        ecInitRemoteForm();
     });
     
+    function ecInitRemoteForm(){
+        if(remoteFormShown==false){
+            ecSubmitButton.hide();
+            ecSelectListGroup.hide();
+
+            $('<div class="form-group"><label class="control-label col-lg-3"></label><div class="col-lg-9 "><input type="submit" value="Připojit" id="ecConnect" class=""></div></div>').insertAfter("#configuration_form .form-wrapper .form-group:first-child");
+
+            $('#ecConnect').click(function(e){
+                e.preventDefault();
+                $(this).val('Připojuji...');
+                $.ajax({
+                        url: '/prestashop/modules/ecomail/ajax-call.php?key=' + ecApiKey.val(),
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log('success');
+                            //console.log(data._embedded);
+                            ecSelectList.html('');
+                            $.each(data._embedded.lists, function( key, val ) {
+                                ecSelectList.append('<option value="' + val.id + '">' + val.name + '</option>');
+                            });
+                            ecSelectListGroup.show();
+                            ecSubmitButton.show();
+                            $('#ecConnect').parents('.form-group').remove();
+                        }
+                });
+                return false;
+            });
+            remoteFormShown = true;
+        }
+    }
 });
