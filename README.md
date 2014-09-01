@@ -1,4 +1,4 @@
-Prestashop modul pro ecomail.cz
+Prestashop modul pro [ecomail.cz](https://www.ecomail.cz)
 ===============================
 
 Tento modul do Prestashop posílá nově registrované uživatele do Vašeho účtu u Ecomailu, tak abyste jim mohli jednodušše a pohodlně posílat Vaše newslettery.
@@ -6,7 +6,7 @@ Tento modul do Prestashop posílá nově registrované uživatele do Vašeho ú�
 Instalace modulu
 ===============================
 
-Stáhněte si modul a zkopírujte ho do složky modules va Vaší Prestashop instalaci.
+[Stáhněte si modul](https://github.com/Ecomail/PrestashopModule/archive/master.zip) a zkopírujte ho do složky modules va Vaší Prestashop instalaci.
 
 Aktivujte modul "Ecomail" v nastavení Vašich modulů.
 
