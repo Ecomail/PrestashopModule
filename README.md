@@ -18,3 +18,8 @@ Podpora pro modul
 ===============================
 
 V případě otázek či problémů se prosím obraťte na [naší podporu](https://ecomailcz.uservoice.com/).
+
+Požadavky pro instalaci
+===============================
+
+Na serveru kde bude modul instalován musí být zapnut [curl](http://php.net/manual/en/book.curl.php)
