@@ -39,6 +39,8 @@ class Ecomail extends Module {
 	
 	public function getContent()
 	{
+	    //var_dump($this->_path);
+	    //exit();
 	    $output = null;
 
 	    if (Tools::isSubmit('submit'.$this->name))
@@ -74,7 +76,7 @@ class Ecomail extends Module {
 				);
 			}
 		}
-		
+		echo $this->_path;
 	    // Init Fields form array
 	    $fields_form[0]['form'] = array(
 	        'legend' => array(
@@ -87,6 +89,10 @@ class Ecomail extends Module {
 	                'name' => 'ecomail_api_key',
 	                'size' => 20,
 	                'required' => true
+	            ),
+	            array(
+	                'type' => 'hidden',
+	                'name' => 'ecomail_module_path'
 	            ),
 				array(
 				  'type' => 'select',                              // This is a <select> tag.
@@ -139,6 +145,7 @@ class Ecomail extends Module {
 
 	    // Load current value
 	    $helper->fields_value['ecomail_api_key'] = Configuration::get('ecomail_api_key');
+	    $helper->fields_value['ecomail_module_path'] = $this->_path;
 		$helper->fields_value['ecomail_list_id'] = Configuration::get('ecomail_list_id');
 		
 	    return $helper->generateForm($fields_form);
