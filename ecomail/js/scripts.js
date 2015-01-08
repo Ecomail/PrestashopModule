@@ -1,6 +1,7 @@
 $(function() {
 
     var ecApiKey = $('#ecomail_api_key');
+    var ecModulePath = $('#ecomail_module_path');
     var ecSubmitButton = $('.panel-footer button[type="submit"]');
     var ecSelectList = $('#ecomail_list_id');
     var ecSelectListGroup = $('#ecomail_list_id').parents('.form-group');
@@ -26,7 +27,7 @@ $(function() {
                 e.preventDefault();
                 $(this).val('Připojuji...');
                 $.ajax({
-                        url: '/prestashop/modules/ecomail/ajax-call.php?key=' + ecApiKey.val(),
+                        url: ecModulePath.val() + 'ajax-call.php?key=' + ecApiKey.val(),
                         type: 'get',
                         dataType: 'json',
                         success: function(data) {
