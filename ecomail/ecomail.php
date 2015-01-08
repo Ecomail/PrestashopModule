@@ -9,11 +9,16 @@ if (!defined('_PS_VERSION_'))
  */
 class Ecomail extends Module {
 	
+	public $_html = null;
+	
 	public function __construct() {
 		
 		$this->name = 'ecomail';
-        $this->tab = 'emailing';
-        $this->version = '1.0';
+        if (version_compare(_PS_VERSION_, '1.5', '>'))
+		    $this->tab = 'emailing';
+		else
+		    $this->tab = 'advertising_marketing';
+        $this->version = '1.0.1';
         $this->author = 'Ecomail.cz s.r.o.';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -28,6 +33,13 @@ class Ecomail extends Module {
 
         if (!Configuration::get('ECOMAIL_CZ'))      
           $this->warning = $this->l('No name provided');
+          
+        
+        // Checking Extension
+		if (!extension_loaded('curl'))
+		{
+			$this->_html = $this->l('Musíte mít povolenu cURL extension abyste mohli používat tento modul.');
+		}
 		
 	}
 	
@@ -39,9 +51,35 @@ class Ecomail extends Module {
 	
 	public function getContent()
 	{
-	    //var_dump($this->_path);
+	    //var_dump($this->_html);
 	    //exit();
 	    $output = null;
+	    if($this->_html){
+            return $this->_html;
+        }
+        
+        $output = '<img src="http://www.ecomail.cz/images/logo-black.png"><div class="clear"></div>';
+        $output .= '<fieldset style="padding: 25px;border: 2px solid #efefef; margin-bottom: 15px;">
+			<div style="float: right; width: 340px; height: 205px; border: dashed 1px #666; padding: 8px; margin-left: 12px; margin-top:-15px;">
+			<h2 style="color:#aad03d;">Kontaktujte Ecomail</h2>
+			<div style="clear: both;"></div>
+			<p> Email : <a href="mailto:support@ecomail.cz" style="color:#aad03d;">support@ecomail.cz</a><br>Phone : +420 777 139 129</p>
+			<p style="padding-top:20px;"><b>Pro více informací nás navštivte na:</b><br><a href="http://www.ecomail.cz" target="_blank" style="color:#aad03d;">http://www.ecomail.cz</a></p>
+			</div>
+			<p>Ecomail plugin Vám pomůže synchronizovat Vaše Prestashop kontakty s vybraným seznamem kontaktů ve Vašem ecomail.cz účtu</p>
+			<b>Proč si vybrat Ecomail.cz ?</b>
+			<ul class="listt">
+				<li> Zaručíme Vám vyšší doručitelnost</li>
+				<li> Nejlepší ceny na trhu - lepší nenajdete</li>
+				<li> Rychlá a vstřícná podpora</li>
+			</ul>
+			<b>Co připravujeme k tomuto pluginu do dalších verzí?</b>
+			<ul class="listt">
+				<li> Užší integraci s akcemi ve Vašem obchodě</li>
+				<li> Rozesílání newsletterů přímo z Prestashopu</li>
+				<li> Napište nám na <a href="mailto:support@ecomail.cz" style="color:#aad03d;">support@ecomail.cz</a> a my Vám plugin přizpůsobíme!</li>
+			</ul><div style="clear:both;">&nbsp;</div>
+			</fieldset>';
 
 	    if (Tools::isSubmit('submit'.$this->name))
 	    {
