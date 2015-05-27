@@ -191,7 +191,10 @@ class Ecomail extends Module {
  
 	public function hookBackOfficeHeader()
 	{
-		$js .= '<script type="text/javascript" src="'.$this->_path.'	js/scripts.js"></script>';
+		if(_PS_VERSION_=='1.5.4.0')
+            		$js .= '<script type="text/javascript" src="'.$this->_path.'js/scripts15.js"></script>';
+        	else
+            		$js .= '<script type="text/javascript" src="'.$this->_path.'js/scripts.js"></script>';
 		return $js;
 	}
 		
