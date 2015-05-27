@@ -18,7 +18,7 @@ class Ecomail extends Module {
 		    $this->tab = 'emailing';
 		else
 		    $this->tab = 'advertising_marketing';
-        $this->version = '1.0.1';
+        $this->version = '1.0.2';
         $this->author = 'Ecomail.cz s.r.o.';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
